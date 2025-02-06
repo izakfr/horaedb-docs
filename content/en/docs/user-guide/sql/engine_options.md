@@ -3,11 +3,11 @@ title: "Options"
 weight: 60
 ---
 
-Options below can be used when create table for analytic engine
+Options below can be used when creating a table for with `Analytic` engine type
 
-- `enable_ttl`, `bool`. When enable TTL on a table, rows older than `ttl` will be deleted and can't be querid, default `true`
+- `enable_ttl`, `bool`. When you enable TTL on a table, rows older than `ttl` will be deleted and can't be queried, default `true`
 - `ttl`, `duration`, lifetime of a row, only used when `enable_ttl` is `true`. default `7d`.
-- `storage_format`, `string`. The underlying column's format. Availiable values:
+- `storage_format`, `string`. The underlying column's format. Available values:
 
   - `columnar`, default
   - `hybrid`, Note: This feature is still in development, and it may change in the future.
@@ -16,7 +16,7 @@ Options below can be used when create table for analytic engine
 
 ## Storage Format
 
-There are mainly two formats supported in analytic engine. One is `columnar`, which is the traditional columnar format, with one table column in one physical column:
+There are mainly two formats supported in the `Analytic` engine. One is `columnar`, which is the traditional columnar format, with one table column in one physical column:
 
 ```plaintext
 | Timestamp | Device ID | Status Code | Tag 1 | Tag 2 |
@@ -32,7 +32,7 @@ There are mainly two formats supported in analytic engine. One is `columnar`, wh
 
 The other one is `hybrid`, an experimental format used to simulate row-oriented storage in columnar storage to accelerate classic time-series query.
 
-In classic time-series user cases like IoT or DevOps, queries will typically first group their result by series id(or device id), then by timestamp. In order to achieve good performance in those scenarios, the data physical layout should match this style, so the `hybrid` format is proposed like this:
+In classic time-series user cases like IoT or DevOps, queries will typically first group their result by series id(or device id), then by timestamp. In order to achieve good performance in those scenarios, the data's physical layout should match this style, so the `hybrid` format is proposed like this:
 
 ```plaintext
  | Device ID | Timestamp           | Status Code | Tag 1 | Tag 2 | minTime | maxTime |
